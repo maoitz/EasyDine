@@ -1,0 +1,45 @@
+EasyDine Backend Project — Roadmap & Status
+            
+DONE:
+
+    Re-did Booking model to use DateTime for bookings instead of separate date and timespan.
+    Updated repos/services/dtos/controllers accordingly.
+    Updated overlap logic to work with DateTime only.
+    Removed Time-slot model entirely.
+    Implemented BookingRulesOptions for configurable rules (min/max duration etc.)
+    Added custom duration to make bookings more flexible instead of the time slots
+    Added Extensions folder:
+         - DateTimeExtensions.cs for truncation logic.
+         - IQueryableExtensions for dynamic filtering (MenuItems). (TBD)
+    
+    Added NuGet package: Microsoft.AspNetCore.Authentication.JwtBearer
+    Implemented JWT authentication for Admins.
+    Added AdminCreateDto, AdminChangePasswordDto
+    Implemented AuthController with login endpoint.
+    Created temp seeding for Admin user with hashed password.
+    
+    Implemented [Authorize] on relevant controllers.
+    Configured JWT settings in appsettings.json and Program.cs.
+    Refactored [Authorize] into a filter, so all write endpoints are protected by default.
+    
+    Dropped DB to clean up after model changes.
+    Re-ran migrations and reseeded data.
+    
+FIX/BUGS/TO-DO:
+
+    api/Menus/{id}/items returns incomplete data:
+     - No Description or Category per Item. (DONE)
+     
+    Add specific error handling message in middleware per entity ex. "Menu not found" (instead of generic "Not Found").
+    Add Rejection for empty body partial updates with 400 Bad Request?
+    "Soft delete" customers / save all customers?
+        - Reset ID counter in SeedData to avoid conflicts
+        
+    Orphaned seed data
+    Add more customer info on booking response (phone/email)?
+    Look over controllers for soft delete / cascading deletes with fluent API
+    
+FUCKUP:
+
+    Don't separate date and time using timespan in bookings. Combine into single DateTime field.
+    (regrets.txt)

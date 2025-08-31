@@ -1,0 +1,15 @@
+# Build output
+bin/
+obj/
+
+# Rider / VS
+.idea/
+.vscode/
+*.user
+*.suo
+
+# Logs
+*.log
+
+# Sensitive configs
+appsettings.json
