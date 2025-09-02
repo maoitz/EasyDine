@@ -25,6 +25,8 @@ DONE:
     Dropped DB to clean up after model changes.
     Re-ran migrations and reseeded data.
     
+    Created ServiceCollectionExtensions for cleaner DI setup in Program.cs.
+    
 FIX/BUGS/TO-DO:
 
     api/Menus/{id}/items returns incomplete data:

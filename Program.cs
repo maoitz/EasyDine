@@ -1,12 +1,8 @@
-using EasyDine.Data;
 using EasyDine.Middleware;
-using EasyDine.Repositories;
-using EasyDine.Repositories.Bookings;
-using EasyDine.Services;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using EasyDine.Extensions;
 using Microsoft.OpenApi.Models;
 using EasyDine.Filters;
 
@@ -19,18 +15,7 @@ public class Program
         var builder = WebApplication.CreateBuilder(args);
 
         // Add services to the container.
-        builder.Services.AddDbContext<AppDbContext>(options =>
-            options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-        
-        // Register the generic repository
-        builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
-        builder.Services.AddScoped<IBookingRepository, BookingRepository>();
-        builder.Services.AddScoped<MenuService>();
-        builder.Services.Configure<BookingRulesOptions>(
-            builder.Configuration.GetSection("BookingRules"));
-        builder.Services.AddScoped<AvailabilityService>();
-        builder.Services.AddScoped<BookingService>();
-        builder.Services.AddScoped<AuthService>();
+        builder.Services.AddEasyDineCore(builder.Configuration);
         
         var jwt = builder.Configuration.GetSection("Jwt");
         builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
